@@ -1,0 +1,28 @@
+$base-font-path: '@/assets/fonts';
+
+@mixin CreateFont($weight-name, $weight) {
+  @font-face {
+    font-family: "Gilroy";
+    src: url('#{$base-font-path}/Gilroy-#{$weight-name}.eot');
+    src: url('#{$base-font-path}/Gilroy-#{$weight-name}.eot?#iefix') format('embedded-opentype'),
+        url('#{$base-font-path}/Gilroy-#{$weight-name}.woff') format('woff'),
+        url('#{$base-font-path}/Gilroy-#{$weight-name}.ttf') format('truetype');
+    font-weight: $weight;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Gilroy";
+    src: url('#{$base-font-path}/Gilroy-#{$weight-name}Italic.eot');
+    src: url('#{$base-font-path}/Gilroy-#{$weight-name}Italic.eot?#iefix') format('embedded-opentype'),
+        url('#{$base-font-path}/Gilroy-#{$weight-name}Italic.woff') format('woff'),
+        url('#{$base-font-path}/Gilroy-#{$weight-name}Italic.ttf') format('truetype');
+    font-weight: $weight;
+    font-style: italic;
+  }
+}
+
+@include CreateFont("Light", 300);
+@include CreateFont("Regular", 400);
+@include CreateFont("SemiBold", 600);
+@include CreateFont("ExtraBold", 700);
