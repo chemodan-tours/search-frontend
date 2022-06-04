@@ -1,0 +1,28 @@
+$main20: #8E96A6;
+$main40: #B4BED1;
+$main60: #DEE1EB;
+$main80: #F0F2F5;
+$main100: #F6F7F9;
+$error20: #E74949;
+$error40: #EC6F6F;
+$green: #2D6776;
+$light-gray: #A9C1C7;
+$black-color: #272727;
+$dark-gray: #3E3E3E;
+
+$shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+$menu-size: 6.8rem;
+$border-image: 2rem;
+$width: 75vw;
+
+@mixin horizontal_container($spacing) {
+  display: flex;
+  align-items: center;
+  column-gap: #{$spacing}rem;
+}
+
+@mixin vertical_container($spacing) {
+  display: flex;
+  flex-direction: column;
+  row-gap: #{$spacing}rem;
+}

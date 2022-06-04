@@ -24,5 +24,6 @@ $base-font-path: '@/assets/fonts';
 
 @include CreateFont("Light", 300);
 @include CreateFont("Regular", 400);
+@include CreateFont("Medium", 500);
 @include CreateFont("SemiBold", 600);
 @include CreateFont("ExtraBold", 700);
