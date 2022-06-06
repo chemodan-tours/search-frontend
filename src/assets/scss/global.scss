@@ -166,7 +166,7 @@ section {
 input {
   font-family: 'Gilroy', serif;
   padding: 0;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1.4rem;
   line-height: 2rem;
   flex: 1;
@@ -175,8 +175,21 @@ input {
   background-color: transparent;
 
   &::placeholder {
-    color: $main40;
+    color: $main20;
   }
+}
+
+.list, .calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: absolute;
+  border-radius: $border-image;
+  padding: $border-image 0;
+  top: calc(100% + 3.2rem);
+  background-color: white;
+  min-width: 32rem;
+  box-shadow: $shadow;
 }
 
 // Animations

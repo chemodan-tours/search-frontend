@@ -31,7 +31,7 @@ export default {
     height: 2rem;
     background-image: url('@/assets/icons/star.svg');
     background-repeat: no-repeat;
-    background-size: 1.8rem;
+    background-size: 2rem;
     background-position: center;
   }
 }
