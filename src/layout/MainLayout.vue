@@ -1,4 +1,5 @@
 <template>
+  <div id="header__container"></div>
   <div class="wrapper">
     <slot></slot>
   </div>

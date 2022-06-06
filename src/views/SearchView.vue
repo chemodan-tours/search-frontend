@@ -1,21 +1,21 @@
 <template>
   <ch-search></ch-search>
-  <section class="results-container">
-    <router-link to="/hotel" v-for="(tour, i) in tours" :key="i">
-      <ch-result :room="tour"></ch-result>
-    </router-link>
-  </section>
+  <!--  <section class="results-container">-->
+  <!--    <router-link to="/hotel" v-for="(tour, i) in tours" :key="i">-->
+  <!--      <ch-result :room="tour"></ch-result>-->
+  <!--    </router-link>-->
+  <!--  </section>-->
 </template>
 
 <script>
-import ChResult from '@/components/ChResult';
+// import ChResult from '@/components/ChResult';
 import ChSearch from '@/components/ChSearch';
 
 export default {
   name: 'SearchView',
   components: {
     ChSearch,
-    ChResult,
+    // ChResult,
   },
   setup() {
     const tours = [
