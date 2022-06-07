@@ -179,6 +179,15 @@ export default {
     background-repeat: no-repeat;
     background-size: 1.2rem;
     background-position: center;
+    transition: background-color 0.15s;
+
+    &:focus {
+      border: 0.1rem solid $main40;
+    }
+
+    &:active {
+      background-color: $main40;
+    }
   }
 }
 </style>

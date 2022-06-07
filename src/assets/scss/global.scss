@@ -30,11 +30,11 @@
 html, body, #app {
   font-family: 'Gilroy', serif;
   font-size: 62.5%;
-  height: 100%;
+  min-height: 100%;
 }
 
 .wrapper {
-  padding: 6rem 0;
+  padding: 10.2rem 0 14.2rem;
   width: $width;
   margin: 0 auto;
   @include vertical_container(12.8);
@@ -83,10 +83,6 @@ button {
     background-color: $main80;
   }
 
-  &:active {
-    transform: scale(0.96);
-  }
-
   &:disabled {
     color: $main60;
     cursor: default;
@@ -102,11 +98,15 @@ section {
   @include vertical_container(4.2);
 }
 
+a {
+  text-decoration: none;
+}
 
 .room {
   @include vertical_container(2.2);
   width: 100%;
   cursor: pointer;
+  color: black;
 
   &__image {
     background-color: $main60;
@@ -130,18 +130,19 @@ section {
   }
 
   &__block {
-    @include vertical_container(0.4);
+    @include vertical_container(0.8);
     flex: 1;
   }
 
   &__name {
-    font-size: 2.4rem;
+    font-size: 1.8rem;
     font-weight: 500;
-    line-height: 1.5;
+    line-height: 1.2;
   }
 
   &__description {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    color: $main20;
   }
 
   &__price {
@@ -150,7 +151,7 @@ section {
     width: max-content;
     height: max-content;
     column-gap: 0.4rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     padding-top: 0.2rem;

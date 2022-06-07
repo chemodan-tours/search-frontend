@@ -175,7 +175,7 @@ export default {
   grid-column-gap: $width / 12;
 
   &__text {
-    font-size: 2rem;
+    font-size: 1.6rem;
     line-height: 1.6;
     display: flex;
     flex-direction: column;

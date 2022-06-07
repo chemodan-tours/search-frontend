@@ -13,10 +13,11 @@ export default {
 
 <style scoped lang="scss">
 #header__container {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
   width: 100%;
 }
 </style>

@@ -88,5 +88,6 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 3.2rem;
   grid-row-gap: 5.2rem;
+  margin-top: 8rem;
 }
 </style>

@@ -28,14 +28,16 @@ export default {
 
 .feature {
   display: flex;
-  gap: 2rem;
+  gap: 1.4rem;
   flex-wrap: wrap;
 
   &__block {
-    font-size: 1.8rem;
-    padding: 1.4rem 1.8rem;
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+    font-weight: 500;
     border-radius: 4rem;
     user-select: none;
+    border: 0.1rem solid #d9d9d9;
     background-color: $main80;
     width: max-content;
     height: max-content;
