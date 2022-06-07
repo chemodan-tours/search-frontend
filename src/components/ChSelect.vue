@@ -1,17 +1,19 @@
 <template>
-  <div v-if="visibility" class="list">
-    <div
-      class="list__item"
-      v-for="(item, i) in items"
-      :key="i"
-      tabindex="0"
-      @click="emitSelect(item.name)"
-      @keydown.enter="emitSelect(item.name)"
-    >
-      <div class="place">{{ item.name }}, {{ item.country_name }}</div>
-      <div class="code">{{ item.code }}</div>
+  <Transition name="fade">
+    <div v-if="visibility" class="list">
+      <div
+        class="list__item"
+        v-for="(item, i) in items"
+        :key="i"
+        tabindex="0"
+        @click="emitSelect(item.name)"
+        @keydown.enter="emitSelect(item.name)"
+      >
+        <div class="place">{{ item.name }}, {{ item.country_name }}</div>
+        <div class="code">{{ item.code }}</div>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script>

@@ -1,4 +1,6 @@
+import { ref, watch } from 'vue';
 import axios from 'axios';
+import { debounce } from 'throttle-debounce';
 
 const PROMT_URL = 'https://suggest.aviasales.ru/v2/places.json';
 const NEAREST_URL =
@@ -25,4 +27,18 @@ export const places_nearest = async () => {
   });
 
   return req.data[0]?.name;
+};
+
+export const usePlaces = (place, key) => {
+  const prompt = ref([]);
+
+  const load = () => {
+    place[key]
+      ? places_prompt(place[key]).then((r) => (prompt.value = r))
+      : (prompt.value = []);
+  };
+
+  watch(place, debounce(150, load));
+
+  return prompt;
 };

@@ -9,6 +9,7 @@
     <label class="field" :for="inputId">
       <div class="field__title">{{ title }}</div>
       <input
+        ref="input"
         :id="inputId"
         class="field__block"
         :placeholder="placeholder"
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import { computed, getCurrentInstance, inject, provide } from 'vue';
+import { ref, computed, getCurrentInstance, inject, provide, watch } from 'vue';
 
 export default {
   name: 'ChField',
@@ -52,6 +53,7 @@ export default {
   },
   setup(_, { emit }) {
     const inputId = `input-${getCurrentInstance().uid}`;
+    const input = ref(null);
 
     const activeField = inject('activeField');
     const activeForm = inject('activeForm');
@@ -64,6 +66,8 @@ export default {
     const isTitleVisible = computed(() => {
       return activeForm.value;
     });
+
+    watch(activeForm, (value) => !value && input.value.blur());
 
     const activateCurrentField = () => {
       activeField.value = inputId;
@@ -81,6 +85,7 @@ export default {
 
     return {
       inputId,
+      input,
       isTitleVisible,
       isActive,
       activateCurrentField,

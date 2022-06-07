@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { ref, reactive, watch, computed, onMounted } from 'vue';
-import { places_prompt, places_nearest } from '@/plugins/places';
+import { computed, onMounted, reactive, ref } from 'vue';
+import { usePlaces, places_nearest } from '@/plugins/places';
 import plural from '@/plugins/plural';
 import { debounce } from 'throttle-debounce';
 
@@ -97,19 +97,8 @@ export default {
       },
     });
 
-    const originPrompt = ref([]);
-    const loadOrigin = async () =>
-      search.origin
-        ? (originPrompt.value = await places_prompt(search.origin))
-        : (originPrompt.value = []);
-    watch(() => search.origin, debounce(150, loadOrigin));
-
-    const destinationPrompt = ref([]);
-    const loadDestination = async () =>
-      search.destination
-        ? (destinationPrompt.value = await places_prompt(search.destination))
-        : (destinationPrompt.value = []);
-    watch(() => search.destination, debounce(150, loadDestination));
+    const originPrompt = usePlaces(search, 'origin');
+    const destinationPrompt = usePlaces(search, 'destination');
 
     const touristsText = computed(() => {
       const total =
@@ -130,6 +119,11 @@ export default {
     onMounted(async () => {
       const nearest = await places_nearest();
       search.origin = nearest ?? '';
+
+      document.addEventListener(
+        'scroll',
+        debounce(50, () => (overlayVisible.value = false))
+      );
     });
 
     return {
