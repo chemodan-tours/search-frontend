@@ -1,18 +1,17 @@
 <template>
-  <div class="calendar">
-    <div class="calendar__body">
-      <div class="calendar__switch">
-        <button class="calendar__switch-btn" @click.prevent="last">
-          &lt;--
-        </button>
-        <button class="calendar__switch-btn" @click.prevent="next">
-          --&gt;
-        </button>
+  <Transition name="fade">
+    <div v-if="visibility" class="calendar">
+      <div class="calendar__body">
+        <button class="calendar__switch-btn" @click.prevent="last"></button>
+        <button
+          class="calendar__switch-btn next"
+          @click.prevent="next"
+        ></button>
+        <ch-calendar-block :date="leftCalendar"></ch-calendar-block>
+        <ch-calendar-block :date="rightCalendar"></ch-calendar-block>
       </div>
-      <ch-calendar-block :date="leftCalendar"></ch-calendar-block>
-      <ch-calendar-block :date="rightCalendar"></ch-calendar-block>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
@@ -78,6 +77,25 @@ export default {
     display: flex;
     justify-content: flex-start;
     column-gap: 2.4rem;
+    position: relative;
+  }
+
+  &__switch-btn {
+    position: absolute;
+    top: -0.6rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    padding: 0;
+    border-radius: 100%;
+    background-image: url('@/assets/icons/prev.svg');
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    background-position: center;
+
+    &.next {
+      right: 0;
+      background-image: url('@/assets/icons/next.svg');
+    }
   }
 }
 </style>

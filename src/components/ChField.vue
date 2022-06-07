@@ -1,9 +1,7 @@
 <template>
   <div class="search__item" :class="{ search__item_active: isActive }">
     <label class="field" :for="inputId">
-      <Transition name="fade">
-        <div v-if="isTitleVisible" class="field__title">{{ title }}</div>
-      </Transition>
+      <div class="field__title">{{ title }}</div>
       <input
         :id="inputId"
         class="field__block"
@@ -13,6 +11,10 @@
         @input="emitModelValue"
         @focus="activateCurrentField"
       />
+      <button
+        class="field__btn-default"
+        @click.prevent="emitClearModelValue"
+      ></button>
     </label>
     <slot></slot>
   </div>
@@ -91,8 +93,24 @@ export default {
       background-color: white;
       box-shadow: $shadow;
 
+      &__btn-default {
+        visibility: visible;
+      }
+
       &:hover {
         background-color: white;
+      }
+    }
+  }
+
+  &_title-visible {
+    .field {
+      &__title {
+        visibility: visible;
+      }
+
+      &__block {
+        margin-top: 1.8rem;
       }
     }
   }
@@ -110,8 +128,15 @@ export default {
   }
 
   &__title {
+    position: absolute;
     font-size: 1.2rem;
     font-weight: 600;
+    visibility: hidden;
+  }
+
+  &__block {
+    transition: margin 0.15s;
+    margin-right: 1.2rem;
   }
 
   &__value {
@@ -125,6 +150,23 @@ export default {
       color: $main40;
       user-select: none;
     }
+  }
+
+  &__btn-default {
+    visibility: hidden;
+    position: absolute;
+    transform: translate(-100%, -50%);
+    top: 50%;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 100%;
+    background-color: $main60;
+    background-image: url('@/assets/icons/close.svg');
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    background-position: center;
   }
 }
 </style>

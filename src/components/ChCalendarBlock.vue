@@ -15,19 +15,16 @@
         class="calendar-block__date"
         :class="{
           'calendar-block__date_range': inRange(date) || inHoverRange(date),
+          'calendar-block__date_disabled': !isAvailableDate(date),
+          'calendar-block__date_select': isStart(date) || isEnd(date),
+          'calendar-block__date_end-range': isEndRange(date),
+          'calendar-block__date_hover': isHover(date),
         }"
         @mouseenter="hover(date)"
         @mouseleave="unHover"
+        @click="select(date)"
       >
-        <div
-          v-if="date !== null"
-          class="calendar-block__cell"
-          :class="{
-            'calendar-block__cell_disabled': !isAvailableDate(date),
-            'calendar-block__cell_active': isStart(date) || isEnd(date),
-          }"
-          @click="select(date)"
-        >
+        <div v-if="date !== null" class="calendar-block__cell">
           {{ date.getDate() }}
         </div>
       </div>
@@ -125,6 +122,13 @@ export default {
     // Check bounds
     const isStart = (date) => isEqual(date, start.value);
     const isEnd = (date) => isEqual(date, end.value);
+    const isHover = (date) => isEqual(date, hoveredItem.value);
+    const isEndRange = (date) =>
+      (hoveredItem.value || end.value) &&
+      isEqual(
+        date,
+        max([hoveredItem.value ?? end.value, end.value ?? hoveredItem.value])
+      );
 
     // Check selected items between bounds
     const inRange = (date) => {
@@ -149,6 +153,8 @@ export default {
       select,
       isStart,
       isEnd,
+      isHover,
+      isEndRange,
       inRange,
       inHoverRange,
     };
@@ -173,13 +179,64 @@ export default {
     display: flex;
     font-size: 1.4rem;
 
-    &_range {
-      background-color: $main60;
-    }
-  }
+    &:hover {
+      cursor: pointer;
 
-  &__cell {
-    margin: auto;
+      .calendar-block__cell {
+        border: 0.1rem solid $main20;
+      }
+    }
+
+    &_range {
+      background-color: $main80;
+      border-top-left-radius: 100%;
+      border-bottom-left-radius: 100%;
+    }
+
+    &_select {
+      .calendar-block__cell {
+        background-color: black;
+        color: white;
+      }
+
+      &:hover .calendar-block__cell {
+        border: none;
+      }
+    }
+
+    &_range + &_range {
+      border-radius: 0;
+    }
+
+    &_end-range {
+      border-top-right-radius: 100% !important;
+      border-bottom-right-radius: 100% !important;
+    }
+
+    &_disabled {
+      color: $main40;
+      cursor: default;
+
+      &:hover {
+        cursor: default;
+
+        .calendar-block__cell {
+          border: none;
+        }
+      }
+    }
+
+    &:nth-child(7n + 1),
+    &:empty + &:not(:empty) {
+      border-top-left-radius: 100%;
+      border-bottom-left-radius: 100%;
+    }
+
+    &:nth-child(7n),
+    &:last-child {
+      border-top-right-radius: 100%;
+      border-bottom-right-radius: 100%;
+    }
   }
 
   &__month {
@@ -188,7 +245,7 @@ export default {
     user-select: none;
     cursor: pointer;
     flex: 1;
-    margin-bottom: 1.6rem;
+    margin-bottom: 2.8rem;
     text-align: center;
   }
 
@@ -206,29 +263,6 @@ export default {
     transition: background-color 0.1s;
     font-weight: 500;
     user-select: none;
-    cursor: pointer;
-
-    &:hover {
-      border: 0.1rem solid $main20;
-    }
-
-    &_active {
-      background-color: black;
-      color: white;
-
-      &:hover {
-        border: none;
-      }
-    }
-
-    &_disabled {
-      cursor: default;
-      color: $main40;
-
-      &:hover {
-        border: none;
-      }
-    }
   }
 }
 
