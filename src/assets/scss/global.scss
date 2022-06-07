@@ -1,0 +1,207 @@
+@import '_fonts';
+@import '_variables';
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $main40;
+  transition: background-color 0.1s;
+
+  &:hover {
+    background-color: $main20;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  font-family: 'Gilroy', serif;
+  font-size: 62.5%;
+  min-height: 100%;
+}
+
+.wrapper {
+  padding: 10.2rem 0 14.2rem;
+  width: $width;
+  margin: 0 auto;
+  @include vertical_container(12.8);
+}
+
+h1 {
+  font-size: 3.2rem;
+  line-height: 4.2rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 4rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 2.8rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+button {
+  @include horizontal_container(0.8);
+  font-weight: 500;
+  font-size: 1.4rem;
+  padding: 1.6rem 4.8rem;
+  border-radius: 4.6rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: max-content;
+  color: black;
+  font-family: 'Gilroy', serif;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.15s;
+
+  &:hover {
+    background-color: $main100;
+  }
+
+  &:focus {
+    background-color: $main80;
+  }
+
+  &:disabled {
+    color: $main60;
+    cursor: default;
+
+    &:hover {
+      transform: scale(1);
+      background-color: transparent;
+    }
+  }
+}
+
+section {
+  @include vertical_container(4.2);
+}
+
+a {
+  text-decoration: none;
+}
+
+.room {
+  @include vertical_container(2.2);
+  width: 100%;
+  cursor: pointer;
+  color: black;
+
+  &__image {
+    background-color: $main60;
+    position: relative;
+    border-radius: $border-image;
+    height: $width / 4;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+  }
+
+  &__information {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 1.6rem;
+  }
+
+  &__block {
+    @include vertical_container(0.8);
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: 1.4rem;
+    color: $main20;
+  }
+
+  &__price {
+    display: flex;
+    align-items: flex-end;
+    width: max-content;
+    height: max-content;
+    column-gap: 0.4rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding-top: 0.2rem;
+
+    span {
+      font-weight: 500;
+      padding-top: 0.2rem;
+    }
+  }
+}
+
+input {
+  font-family: 'Gilroy', serif;
+  padding: 0;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  flex: 1;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-overflow: ellipsis;
+
+  &::placeholder {
+    color: $main20;
+  }
+}
+
+.list, .calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: absolute;
+  border-radius: $border-image;
+  padding: $border-image 0;
+  top: calc(100% + 3.2rem);
+  background-color: white;
+  min-width: 32rem;
+  box-shadow: $shadow;
+}
+
+// Animations
+
+// Name: fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
