@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { ref, computed, provide } from 'vue';
+import { ref, computed, provide, inject } from 'vue';
 import { today } from '@/plugins/dates';
 import { startOfMonth, addMonths, subMonths } from 'date-fns';
 
@@ -35,6 +35,10 @@ export default {
     },
   },
   setup(props) {
+    // Visibility
+    const visibility = inject('activeFieldGroup');
+
+    // Calendar
     const currentDate = ref(startOfMonth(props.startDate ?? today));
 
     const leftCalendar = computed(() => currentDate.value);
@@ -55,6 +59,7 @@ export default {
     provide('hoveredItem', ref(null));
 
     return {
+      visibility,
       currentDate,
       leftCalendar,
       rightCalendar,

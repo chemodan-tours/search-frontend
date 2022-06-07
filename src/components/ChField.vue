@@ -1,5 +1,11 @@
 <template>
-  <div class="search__item" :class="{ search__item_active: isActive }">
+  <div
+    class="search__item"
+    :class="{
+      search__item_active: isActive,
+      'search__item_title-visible': isTitleVisible,
+    }"
+  >
     <label class="field" :for="inputId">
       <div class="field__title">{{ title }}</div>
       <input
@@ -25,7 +31,7 @@ import { computed, getCurrentInstance, inject, provide } from 'vue';
 
 export default {
   name: 'ChField',
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'delete'],
   props: {
     title: {
       type: String,
@@ -49,6 +55,7 @@ export default {
 
     const activeField = inject('activeField');
     const activeForm = inject('activeForm');
+    const fieldGroup = inject('fieldGroup', null);
 
     const isActive = computed(() => {
       return activeField.value === inputId;
@@ -62,11 +69,15 @@ export default {
       activeField.value = inputId;
     };
 
-    const emitModelValue = (evt) => {
-      emit('update:modelValue', evt.target.value);
-    };
+    const emitModelValue = (evt) => emit('update:modelValue', evt.target.value);
+    const emitClearModelValue = () => emit('delete');
 
     provide('activeParentField', isActive);
+
+    // Field group
+    if (fieldGroup) {
+      fieldGroup.push(inputId);
+    }
 
     return {
       inputId,
@@ -74,6 +85,7 @@ export default {
       isActive,
       activateCurrentField,
       emitModelValue,
+      emitClearModelValue,
     };
   },
 };

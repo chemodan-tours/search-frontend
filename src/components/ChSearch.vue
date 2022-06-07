@@ -22,19 +22,21 @@
                 @select="setDestination"
               ></ch-select>
             </ch-field>
-            <ch-field
-              title="Приезд"
-              placeholder="Когда?"
-              readonly
-              v-model="search.from_date"
-            ></ch-field>
-            <ch-field
-              title="Выезд"
-              placeholder="Когда?"
-              readonly
-              v-model="search.to_date"
-            ></ch-field>
-            <ch-calendar></ch-calendar>
+            <ch-field-group>
+              <ch-field
+                title="Приезд"
+                placeholder="Когда?"
+                readonly
+                v-model="search.from_date"
+              ></ch-field>
+              <ch-field
+                title="Выезд"
+                placeholder="Когда?"
+                readonly
+                v-model="search.to_date"
+              ></ch-field>
+              <ch-calendar></ch-calendar>
+            </ch-field-group>
             <ch-field
               title="Кто"
               placeholder="Кто едет?"
@@ -58,8 +60,8 @@
 </template>
 
 <script>
-import { ref, reactive, watch, computed } from 'vue';
-import places from '@/plugins/places';
+import { ref, reactive, watch, computed, onMounted } from 'vue';
+import { places_prompt, places_nearest } from '@/plugins/places';
 import plural from '@/plugins/plural';
 import { debounce } from 'throttle-debounce';
 
@@ -68,10 +70,12 @@ import ChForm from '@/components/ChForm';
 import ChSelect from '@/components/ChSelect';
 import ChGuests from '@/components/ChGuests';
 import ChCalendar from '@/components/ChCalendar';
+import ChFieldGroup from '@/components/ChFieldGroup';
 
 export default {
   name: 'ChSearch',
   components: {
+    ChFieldGroup,
     ChCalendar,
     ChGuests,
     ChSelect,
@@ -96,14 +100,14 @@ export default {
     const originPrompt = ref([]);
     const loadOrigin = async () =>
       search.origin
-        ? (originPrompt.value = await places(search.origin))
+        ? (originPrompt.value = await places_prompt(search.origin))
         : (originPrompt.value = []);
     watch(() => search.origin, debounce(150, loadOrigin));
 
     const destinationPrompt = ref([]);
     const loadDestination = async () =>
       search.destination
-        ? (destinationPrompt.value = await places(search.destination))
+        ? (destinationPrompt.value = await places_prompt(search.destination))
         : (destinationPrompt.value = []);
     watch(() => search.destination, debounce(150, loadDestination));
 
@@ -122,6 +126,11 @@ export default {
     const setTourists = (value) => (search.tourists = value);
 
     const closeOverlay = () => (overlayVisible.value = false);
+
+    onMounted(async () => {
+      const nearest = await places_nearest();
+      search.origin = nearest ?? '';
+    });
 
     return {
       overlayVisible,

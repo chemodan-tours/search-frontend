@@ -44,6 +44,7 @@ import {
   isEqual,
   addYears,
   format,
+  max,
 } from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
 
