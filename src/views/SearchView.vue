@@ -1,21 +1,32 @@
 <template>
   <ch-search></ch-search>
-  <section class="results-container">
+  <!-- <section class="results-container">
     <router-link to="/hotel" v-for="(tour, i) in tours" :key="i">
       <ch-result :room="tour"></ch-result>
+      <ch-skeleton></ch-skeleton>
     </router-link>
-  </section>
+  </section> -->
+  <div class="message">
+    <!-- <h2 class="message__name">Ничего не найдено 😞</h2> -->
+    <h2 class="message__name">Ничего не найдено 😿</h2>
+    <div class="message__description">
+      Попробуйте скорректировать или удалить некоторые фильтры либо изменить
+      регион поиска.
+    </div>
+  </div>
 </template>
 
 <script>
-import ChResult from '@/components/ChResult';
+// import ChResult from '@/components/ChResult';
 import ChSearch from '@/components/ChSearch';
+// import ChSkeleton from '@/components/ChSkeleton';
 
 export default {
   name: 'SearchView',
   components: {
     ChSearch,
-    ChResult,
+    // ChResult,
+    // ChSkeleton,
   },
   setup() {
     const tours = [
@@ -89,5 +100,17 @@ export default {
   grid-column-gap: 3.2rem;
   grid-row-gap: 5.2rem;
   margin-top: 8rem;
+}
+
+.message {
+  @include vertical_container(2);
+  margin: 24rem auto;
+  width: 60rem;
+  text-align: center;
+
+  &__description {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
 }
 </style>
